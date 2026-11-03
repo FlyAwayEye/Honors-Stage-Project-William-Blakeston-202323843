@@ -1,0 +1,15 @@
+# getrid of analyzer loop bug
+JSON
+
+{
+    "python.analysis.exclude": [
+        "**/.venv/**",
+        "**/data/**",
+        "**/models/**"
+    ],
+    "files.watcherExclude": {
+        "**/.venv/**": true,
+        "**/data/**": true,
+        "**/models/**": true
+    }
+}
