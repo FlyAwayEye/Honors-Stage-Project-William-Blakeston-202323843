@@ -1,0 +1,44 @@
+{
+    "model_id": "openai/whisper-small",
+    "dataset_split": "test (Challenge Dataset)",
+    "total_clips_evaluated": 657,
+    "evaluation_time_seconds": 32.54,
+    "overall_normalized": {
+        "wer_percent": 8.64,
+        "substitutions_S": 444,
+        "deletions_D": 55,
+        "insertions_I": 81,
+        "total_words_N": 6716,
+        "hits": 6217
+    },
+    "overall_raw_wer_percent": 13.18,
+    "by_accent_normalized": {
+        "Scottish": {
+            "clip_count": 336,
+            "wer_percent": 9.68,
+            "substitutions_S": 248,
+            "deletions_D": 36,
+            "insertions_I": 53,
+            "total_words_N": 3482,
+            "hits": 3198
+        },
+        "Irish": {
+            "clip_count": 229,
+            "wer_percent": 8.35,
+            "substitutions_S": 160,
+            "deletions_D": 15,
+            "insertions_I": 21,
+            "total_words_N": 2346,
+            "hits": 2171
+        },
+        "Welsh": {
+            "clip_count": 92,
+            "wer_percent": 5.29,
+            "substitutions_S": 36,
+            "deletions_D": 4,
+            "insertions_I": 7,
+            "total_words_N": 888,
+            "hits": 848
+        }
+    }
+}

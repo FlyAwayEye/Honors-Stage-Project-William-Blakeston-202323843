@@ -39,7 +39,7 @@ def categorize_accent(raw_accent: str) -> str:
         return "Welsh"
     return "Other"
 
-
+# Word Error Rate formula definition
 def compute_wer_breakdown(references: list[str], hypotheses: list[str]) -> dict:
     """Compute WER = (S + D + I) / N along with individual error counts."""
     output = jiwer.process_words(references, hypotheses)
@@ -152,3 +152,59 @@ def main():
     total_time = round(time.time() - start_time, 2)
 
     # Calculate overall and per-accent metrics
+    overall_norm_metrics = compute_wer_breakdown(all_refs_norm, all_hyps_norm)
+    overall_raw_wer = round(jiwer.wer(all_refs_raw, all_hyps_raw) * 100, 2)
+
+    accent_metrics = {}
+    for group, (refs, hyps) in accent_buckets.items():
+        if refs:
+            accent_metrics[group] = {
+                "clip_count": len(refs),
+                **compute_wer_breakdown(refs, hyps)
+            }
+
+    summary = {
+        "model_id": MODEL_ID,
+        "dataset_split": "test (Challenge Dataset)",
+        "total_clips_evaluated": len(all_refs_norm),
+        "evaluation_time_seconds": total_time,
+        "overall_normalized": overall_norm_metrics,
+        "overall_raw_wer_percent": overall_raw_wer,
+        "by_accent_normalized": accent_metrics
+    }
+
+    # Save JSON summary and CSV predictions
+    summary_path = RESULTS_DIR / "baseline_summary.json"
+    with open(summary_path, mode="w", encoding="utf-8") as f:
+        json.dump(summary, f, indent=4)
+
+    predictions_path = RESULTS_DIR / "baseline_predictions.csv"
+    with open(predictions_path, mode="w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=detailed_rows[0].keys())
+        writer.writeheader()
+        writer.writerows(detailed_rows)
+
+    # Print formatted report
+    print("\n" + "=" * 60)
+    print(f"BASELINE EVALUATION REPORT: {MODEL_ID}")
+    print("=" * 60)
+    print(f"Total Clips Evaluated : {len(all_refs_norm)} (~1.00 hour)")
+    print(f"Total Execution Time  : {total_time}s")
+    print(f"Overall Raw WER       : {overall_raw_wer}%")
+    print(f"Overall Normalized WER: {overall_norm_metrics['wer_percent']}%")
+    print(f"  - Substitutions (S) : {overall_norm_metrics['substitutions_S']}")
+    print(f"  - Deletions (D)     : {overall_norm_metrics['deletions_D']}")
+    print(f"  - Insertions (I)    : {overall_norm_metrics['insertions_I']}")
+    print(f"  - Total Words (N)   : {overall_norm_metrics['total_words_N']}")
+    print("-" * 60)
+    print("Normalized WER by Regional Accent:")
+    for group, stats in accent_metrics.items():
+        print(f"  * {group:<10} ({stats['clip_count']:>3} clips): {stats['wer_percent']}% WER "
+              f"[S:{stats['substitutions_S']}, D:{stats['deletions_D']}, I:{stats['insertions_I']}, N:{stats['total_words_N']}]")
+    print("=" * 60)
+    print(f"Saved summary to     : {summary_path}")
+    print(f"Saved predictions to : {predictions_path}")
+
+
+if __name__ == "__main__":
+    main()
