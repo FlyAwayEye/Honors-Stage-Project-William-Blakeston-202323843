@@ -1,0 +1,70 @@
+{
+    "model_id": "openai/whisper-small + LoRA (models\\whisper-small-lora)",
+    "dataset_split": "test (Challenge Dataset)",
+    "total_clips_evaluated": 657,
+    "evaluation_time_seconds": 29.35,
+    "overall_normalized": {
+        "wer_percent": 7.52,
+        "substitutions_S": 396,
+        "deletions_D": 52,
+        "insertions_I": 57,
+        "total_words_N": 6716,
+        "hits": 6268
+    },
+    "overall_raw_wer_percent": 11.74,
+    "by_accent_normalized": {
+        "Scottish": {
+            "clip_count": 336,
+            "wer_percent": 7.84,
+            "substitutions_S": 205,
+            "deletions_D": 30,
+            "insertions_I": 38,
+            "total_words_N": 3482,
+            "hits": 3247
+        },
+        "Irish": {
+            "clip_count": 229,
+            "wer_percent": 7.84,
+            "substitutions_S": 151,
+            "deletions_D": 18,
+            "insertions_I": 15,
+            "total_words_N": 2346,
+            "hits": 2177
+        },
+        "Welsh": {
+            "clip_count": 92,
+            "wer_percent": 5.41,
+            "substitutions_S": 40,
+            "deletions_D": 4,
+            "insertions_I": 4,
+            "total_words_N": 888,
+            "hits": 844
+        }
+    },
+    "baseline_comparison": {
+        "baseline_normalized_wer": 8.64,
+        "lora_normalized_wer": 7.52,
+        "relative_normalized_reduction_percent": 12.96,
+        "baseline_raw_wer": 13.18,
+        "lora_raw_wer": 11.74,
+        "relative_raw_reduction_percent": 10.93,
+        "meets_15_percent_pdd_target": false,
+        "by_accent": {
+            "Scottish": {
+                "baseline_wer": 9.68,
+                "lora_wer": 7.84,
+                "relative_reduction_percent": 19.01
+            },
+            "Irish": {
+                "baseline_wer": 8.35,
+                "lora_wer": 7.84,
+                "relative_reduction_percent": 6.11
+            },
+            "Welsh": {
+                "baseline_wer": 5.29,
+                "lora_wer": 5.41,
+                "relative_reduction_percent": -2.27
+            }
+        }
+    }
+}

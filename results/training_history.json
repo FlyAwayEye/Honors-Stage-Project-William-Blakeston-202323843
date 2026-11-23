@@ -1,32 +1,77 @@
 {
     "base_model": "openai/whisper-small",
+    "precision": "torch.bfloat16",
     "epochs": 3,
     "batch_size": 8,
     "gradient_accumulation_steps": 2,
-    "learning_rate": 0.0001,
-    "best_validation_loss": 0.3949,
-    "total_training_time_seconds": 2865.27,
-    "epoch_history": [
+    "learning_rate": 5e-05,
+    "lora_r": 16,
+    "lora_alpha": 32,
+    "lora_dropout": 0.1,
+    "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "out_proj"
+    ],
+    "best_validation_loss": 0.2834,
+    "total_training_time_seconds": 2018.11,
+    "eval_history": [
+        {
+            "epoch": 0.5,
+            "update_step": 200,
+            "train_loss": 0.7905,
+            "val_loss": 0.298,
+            "peak_vram_gb": 6.6
+        },
         {
             "epoch": 1,
-            "train_loss": 1.2907,
-            "val_loss": 0.3949,
-            "epoch_time_seconds": 999.76,
-            "peak_vram_gb": 8.89
+            "update_step": 397,
+            "train_loss": 0.6326,
+            "val_loss": 0.2881,
+            "peak_vram_gb": 6.61
+        },
+        {
+            "epoch": 1.01,
+            "update_step": 400,
+            "train_loss": 0.373,
+            "val_loss": 0.288,
+            "peak_vram_gb": 6.61
+        },
+        {
+            "epoch": 1.51,
+            "update_step": 600,
+            "train_loss": 0.4299,
+            "val_loss": 0.2864,
+            "peak_vram_gb": 6.61
         },
         {
             "epoch": 2,
-            "train_loss": 0.56,
-            "val_loss": 0.3995,
-            "epoch_time_seconds": 935.32,
-            "peak_vram_gb": 8.89
+            "update_step": 794,
+            "train_loss": 0.4225,
+            "val_loss": 0.2834,
+            "peak_vram_gb": 6.61
+        },
+        {
+            "epoch": 2.02,
+            "update_step": 800,
+            "train_loss": 0.3015,
+            "val_loss": 0.2834,
+            "peak_vram_gb": 6.61
+        },
+        {
+            "epoch": 2.52,
+            "update_step": 1000,
+            "train_loss": 0.3842,
+            "val_loss": 0.2834,
+            "peak_vram_gb": 6.61
         },
         {
             "epoch": 3,
-            "train_loss": 0.5278,
-            "val_loss": 0.4003,
-            "epoch_time_seconds": 929.76,
-            "peak_vram_gb": 8.89
+            "update_step": 1191,
+            "train_loss": 0.3914,
+            "val_loss": 0.2834,
+            "peak_vram_gb": 6.61
         }
     ]
 }
